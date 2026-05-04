@@ -7,195 +7,214 @@
     <!-- Importing modern traditional fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #D4AF37;
-            --dark-gold: #B8860B;
-            --maroon: #6A040F;
-            --cream: #FAF3E0;
-            --text-dark: #370617;
-        }
+    :root {
+        --gold: #A67C00;       /* Deep Bronze for better contrast */
+        --dark-gold: #8B5E00;  /* Deeper shade for definition */
+        --maroon: #6A040F;
+        --cream: #FAF3E0;
+        --text-dark: #370617;
+    }       
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Lato', sans-serif;
-            background-color: var(--cream);
-            color: var(--text-dark);
-            height: 100%;
-            overflow: hidden; /* Prevent scrolling until doors open */
-        }
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Lato', sans-serif;
+        background-color: var(--cream);
+        color: var(--text-dark);
+        height: 100%;
+        overflow: hidden; /* Prevent scrolling until doors open */
+    }
 
-        h1, h2, h3, .shloka {
-            font-family: 'Cinzel', serif;
-        }
+    h1, h2, h3, .shloka {
+        font-family: 'Cinzel', serif;
+    }
 
-        /* 1. Mantapa Door Background */
-        .door-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 100;
-            display: flex;
-            pointer-events: none;
-        }
+    /* 1. Mantapa Door Background */
+    .door-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        display: flex;
+        pointer-events: none;
+    }
 
-        .door {
-            width: 50%;
-            height: 100%;
-            background-color: var(--maroon);
-            /* ADD YOUR MANTAPA DOOR IMAGE HERE */
-            background-image: url('temple door1.jpg'); 
-            background-size: cover;
-            background-position: center;
-            border: 5px solid var(--gold);
-            transition: transform 2s cubic-bezier(0.64, 0, 0.78, 0);
-            pointer-events: auto;
-            position: relative;
-        }
+    .door {
+        width: 50%;
+        height: 100%;
+        background-color: var(--maroon);
+        background-image: url('temple door1.jpg'); 
+        background-size: cover;
+        background-position: center;
+        border: 5px solid var(--gold);
+        transition: transform 2s cubic-bezier(0.64, 0, 0.78, 0);
+        pointer-events: auto;
+        position: relative;
+    }
 
-        .door-left { transform-origin: left; border-right: 2px solid var(--dark-gold); }
-        .door-right { transform-origin: right; border-left: 2px solid var(--dark-gold); }
-        
-        .door-container.open .door-left { transform: perspective(1200px) rotateY(-105deg); }
-        .door-container.open .door-right { transform: perspective(1200px) rotateY(105deg); }
+    .door-left { transform-origin: left; border-right: 2px solid var(--dark-gold); }
+    .door-right { transform-origin: right; border-left: 2px solid var(--dark-gold); }
+    
+    .door-container.open .door-left { transform: perspective(1200px) rotateY(-105deg); }
+    .door-container.open .door-right { transform: perspective(1200px) rotateY(105deg); }
 
-        .knock-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 35px;
-            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
-            color: #fff;
-            border: none;
-            font-size: 1.2rem;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            cursor: pointer;
-            z-index: 101;
-            border-radius: 4px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
-        }
-        .knock-btn:hover { transform: translate(-50%, -50%) scale(1.05); }
+    .knock-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px 35px;
+        background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+        color: #fff;
+        border: none;
+        font-size: 1.2rem;
+        font-family: 'Cinzel', serif;
+        letter-spacing: 2px;
+        cursor: pointer;
+        z-index: 101;
+        border-radius: 4px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        transition: transform 0.3s;
+    }
+    .knock-btn:hover { transform: translate(-50%, -50%) scale(1.05); }
 
-        /* 2. Main Page Background & Scroll Setup */
-        .scroll-container {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            /* ADD YOUR MAIN BACKGROUND IMAGE HERE */
-            background-image: url('background.png'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Parallax effect */
-        }
+    /* 2. Main Page Background & Scroll Setup */
+    .scroll-container {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        background-image: url('background.png'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Parallax effect */
+    }
 
-        /* Dark overlay to make text readable over background */
-        .scroll-container::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(250, 243, 224, 0.85); /* Cream overlay */
-            z-index: -1;
-        }
+    /* Dark overlay to make text readable over background */
+    .scroll-container::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(250, 243, 224, 0.85); /* Cream overlay */
+        z-index: -1;
+    }
 
-        .scroll-section {
-            height: 100vh;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+    .scroll-section {
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
-        /* 4. Sequential Appearance (Fade In Up) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* 4. Sequential Appearance (Fade In Up) */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+    
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        /* Timers for elements appearing one by one */
-        .delay-1 { transition-delay: 0.5s; }
-        .delay-2 { transition-delay: 1.2s; }
-        .delay-3 { transition-delay: 1.9s; }
-        .delay-4 { transition-delay: 2.6s; }
+    /* Timers for elements appearing one by one */
+    .delay-1 { transition-delay: 0.5s; }
+    .delay-2 { transition-delay: 1.2s; }
+    .delay-3 { transition-delay: 1.9s; }
+    .delay-4 { transition-delay: 2.6s; }
 
-        /* Typography & Design Details */
-        .god-photo {
-            width: 150px;
-            height: 200px;
-            border: 2px solid var(--gold);
-            border-radius: 100px 100px 0 0; /* Temple arch shape */
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+    /* Typography & Design Details */
+    .god-photo {
+        width: 150px;
+        height: 200px;
+        border: 2px solid var(--gold);
+        border-radius: 100px 100px 0 0; /* Temple arch shape */
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-        .shloka { font-size: 1.4rem; color: var(--maroon); margin-bottom: 30px; line-height: 1.5; }
-        
-        .names { font-size: 3.5rem; color: var(--maroon); font-weight: 700; margin: 10px 0; }
-        .ampersand { font-size: 2rem; color: var(--gold); }
+    .shloka { font-size: 1.4rem; color: var(--maroon); margin-bottom: 30px; line-height: 1.5; }
+    
+    .names { font-size: 3.5rem; color: var(--maroon); font-weight: 700; margin: 10px 0; }
+    
+    .ampersand { 
+        font-size: 2rem; 
+        color: var(--gold);
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Light lift for visibility */
+    }
 
-        /* 6. Event List Pane (Modern Glass/Card Design) */
-        .event-pane {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--gold);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(106, 4, 15, 0.1);
-            max-width: 500px;
-            width: 100%;
-        }
-        
-        .event-item { margin-bottom: 20px; border-bottom: 1px dashed rgba(212, 175, 55, 0.5); padding-bottom: 15px; }
-        .event-item:last-child { border-bottom: none; }
-        .event-time { color: var(--maroon); font-weight: bold; font-size: 1.2rem; }
+    /* Section Headings visibility update */
+    h3 {
+        color: var(--dark-gold) !important; 
+        text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
+    }
 
-        .btn-modern {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 25px;
-            background-color: var(--maroon);
-            color: var(--cream);
-            text-decoration: none;
-            border-radius: 30px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid var(--maroon);
-        }
-        .btn-modern:hover { background-color: var(--cream); color: var(--maroon); }
-        .btn-outline { background-color: transparent; color: var(--maroon); border-color: var(--maroon); }
-        .btn-outline:hover { background-color: var(--maroon); color: var(--cream); }
+    /* 6. Event List Pane (Modern Glass/Card Design) */
+    .event-pane {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--gold);
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(106, 4, 15, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+    
+    .event-item { margin-bottom: 20px; border-bottom: 1px dashed rgba(212, 175, 55, 0.5); padding-bottom: 15px; }
+    .event-item:last-child { border-bottom: none; }
+    .event-time { color: var(--maroon); font-weight: bold; font-size: 1.2rem; }
 
-        .footer-gift { font-size: 0.85rem; color: #666; margin-top: 40px; }
-        .footer-gift a { color: var(--gold); text-decoration: underline; }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            animation: bounce 2s infinite;
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
-    </style>
+    .btn-modern {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 25px;
+        background-color: var(--maroon);
+        color: var(--cream);
+        text-decoration: none;
+        border-radius: 30px;
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 1px solid var(--maroon);
+    }
+    .btn-modern:hover { background-color: var(--cream); color: var(--maroon); }
+    
+    .btn-outline { 
+        background-color: transparent; 
+        color: var(--text-dark); 
+        border: 2px solid var(--dark-gold); 
+    }
+    .btn-outline:hover { 
+        background-color: var(--dark-gold); 
+        color: #fff; 
+    }
+
+    .footer-gift { font-size: 0.85rem; color: #666; margin-top: 40px; }
+    .footer-gift a { color: var(--dark-gold); text-decoration: underline; font-weight: bold; }
+    
+    .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        animation: bounce 2s infinite;
+        color: var(--dark-gold); /* Darker shade for contrast */
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+</style>
 </head>
 <body>
 
@@ -222,7 +241,7 @@
 
             <div class="reveal delay-3" style="text-align: center;">
                 <div class="names">Archana</div>
-                <div class="ampersand">&</div>
+                <div class="ampersand">Weds</div>
                 <div class="names">Hrishikesh</div>
             </div>
 
