@@ -1,323 +1,331 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinay L Varanasi | Storyteller & Artist</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<style>
-        /* ... other styles ... */
-        
-        /* UPDATE THIS BLOCK */
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image1.jpg');
+    <title>Archana & Hrishikesh | Wedding Invitation</title>
+    <!-- Importing modern traditional fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #B8860B;
+            --maroon: #6A040F;
+            --cream: #FAF3E0;
+            --text-dark: #370617;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling until doors open */
+        }
+
+        h1, h2, h3, .shloka {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* 1. Mantapa Door Background */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            display: flex;
+            pointer-events: none;
+        }
+
+        .door {
+            width: 50%;
+            height: 100%;
+            background-color: var(--maroon);
+            /* ADD YOUR MANTAPA DOOR IMAGE HERE */
+            background-image: url('temple door1.jpg'); 
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            border: 5px solid var(--gold);
+            transition: transform 2s cubic-bezier(0.64, 0, 0.78, 0);
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .door-left { transform-origin: left; border-right: 2px solid var(--dark-gold); }
+        .door-right { transform-origin: right; border-left: 2px solid var(--dark-gold); }
+        
+        .door-container.open .door-left { transform: perspective(1200px) rotateY(-105deg); }
+        .door-container.open .door-right { transform: perspective(1200px) rotateY(105deg); }
+
+        .knock-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: #fff;
+            border: none;
+            font-size: 1.2rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 101;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .knock-btn:hover { transform: translate(-50%, -50%) scale(1.05); }
+
+        /* 2. Main Page Background & Scroll Setup */
+        .scroll-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            /* ADD YOUR MAIN BACKGROUND IMAGE HERE */
+            background-image: url('background.png'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+        }
+
+        /* Dark overlay to make text readable over background */
+        .scroll-container::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(250, 243, 224, 0.85); /* Cream overlay */
+            z-index: -1;
+        }
+
+        .scroll-section {
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 4. Sequential Appearance (Fade In Up) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
         }
         
-        /* ... other styles ... */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timers for elements appearing one by one */
+        .delay-1 { transition-delay: 0.5s; }
+        .delay-2 { transition-delay: 1.2s; }
+        .delay-3 { transition-delay: 1.9s; }
+        .delay-4 { transition-delay: 2.6s; }
+
+        /* Typography & Design Details */
+        .god-photo {
+            width: 150px;
+            height: 200px;
+            border: 2px solid var(--gold);
+            border-radius: 100px 100px 0 0; /* Temple arch shape */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .shloka { font-size: 1.4rem; color: var(--maroon); margin-bottom: 30px; line-height: 1.5; }
+        
+        .names { font-size: 3.5rem; color: var(--maroon); font-weight: 700; margin: 10px 0; }
+        .ampersand { font-size: 2rem; color: var(--gold); }
+
+        /* 6. Event List Pane (Modern Glass/Card Design) */
+        .event-pane {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--gold);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(106, 4, 15, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .event-item { margin-bottom: 20px; border-bottom: 1px dashed rgba(212, 175, 55, 0.5); padding-bottom: 15px; }
+        .event-item:last-child { border-bottom: none; }
+        .event-time { color: var(--maroon); font-weight: bold; font-size: 1.2rem; }
+
+        .btn-modern {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 25px;
+            background-color: var(--maroon);
+            color: var(--cream);
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--maroon);
+        }
+        .btn-modern:hover { background-color: var(--cream); color: var(--maroon); }
+        .btn-outline { background-color: transparent; color: var(--maroon); border-color: var(--maroon); }
+        .btn-outline:hover { background-color: var(--maroon); color: var(--cream); }
+
+        .footer-gift { font-size: 0.85rem; color: #666; margin-top: 40px; }
+        .footer-gift a { color: var(--gold); text-decoration: underline; }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s infinite;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-stone-100/95 backdrop-blur-md shadow-md border-b border-amber-200">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-widest text-amber-900 nav-font border-2 border-amber-900 p-1 px-3">
-                VLV
-            </a>
-            
-            <div class="hidden md:flex space-x-8 text-sm font-bold text-amber-900 nav-font">
-                <a href="#about" class="hover:text-amber-600 transition duration-300">THE STORYTELLER</a>
-                <a href="#productions" class="hover:text-amber-600 transition duration-300">PRODUCTIONS</a>
-                <a href="#schedule" class="hover:text-amber-600 transition duration-300">UPCOMING SHOWS</a>
-                <a href="#contact" class="hover:text-amber-600 transition duration-300">CONTACT</a>
-            </div>
+    <button class="knock-btn" id="knock">Open Invitation</button>
 
-            <button class="md:hidden text-amber-900 text-2xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-stone-100 border-t border-amber-200 p-4">
-            <a href="#about" class="block py-2 text-amber-900 font-bold nav-font">THE STORYTELLER</a>
-            <a href="#productions" class="block py-2 text-amber-900 font-bold nav-font">PRODUCTIONS</a>
-            <a href="#schedule" class="block py-2 text-amber-900 font-bold nav-font">UPCOMING SHOWS</a>
-            <a href="#contact" class="block py-2 text-amber-900 font-bold nav-font">CONTACT</a>
-        </div>
-    </nav>
+    <div class="door-container" id="doors">
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+    </div>
 
-    <header class="hero-section h-screen flex items-center justify-center text-center px-4">
-        <div class="max-w-4xl text-white">
-            <p class="text-amber-300 tracking-[0.2em] mb-4 text-sm md:text-lg font-bold uppercase">Immersive Storytelling • Mythology • Art</p>
-            <h1 class="text-6xl md:text-8xl mb-6 font-bold leading-tight">VINAY L VARANASI</h1>
-            <p class="text-xl md:text-2xl italic text-stone-200 mb-10 font-light">
-                "Breathing life into the Puranas, weaving the sacred with the contemporary."
-            </p>
-            <div class="flex justify-center space-x-6">
-                <a href="#productions" class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-sm font-bold nav-font tracking-wider transition">
-                    WATCH VIDEOS
-                </a>
-                <a href="#schedule" class="border border-white hover:bg-white hover:text-amber-900 text-white px-8 py-3 rounded-sm font-bold nav-font tracking-wider transition">
-                    LIVE SHOWS
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <section id="about" class="py-24 container mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-4xl md:text-5xl text-amber-900 mb-4">The Storyteller</h2>
-            <div class="ornament-divider"><i class="fas fa-om text-2xl"></i></div>
-            <p class="text-lg leading-relaxed text-stone-700">
-                Vinay Varanasi is not just a storyteller; he is a bridge between the ancient and the avant-garde. 
-                Trained as an architect with a Masters from <span class="text-amber-700 font-bold">Bauhaus-Universität Weimar</span>, 
-                Vinay brings a structural elegance to the fluid world of Indian mythology.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-12 items-start">
-            <div class="relative group">
-                <div class="absolute -inset-2 bg-amber-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                <img src="vinay.jpg" alt="Vinay Varanasi Performing" class="relative rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-500 w-full object-cover h-[500px]">
+    <!-- 7. Scrollable Sections -->
+    <div class="scroll-container" id="mainContainer">
+        
+        <!-- SECTION 1: The Reveal -->
+        <div class="scroll-section">
+            <div class="god-photo reveal delay-1">
+                
+				<img src="ragavendra swami.jpeg" alt="Deity" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             
-            <div class="space-y-6 text-stone-800">
-                <h3 class="text-2xl text-amber-800 font-bold">Founder of Shuka</h3>
-                <p>
-                    As the founder of <strong>Shuka</strong>, Vinay works to revive immortal stories through curated events, productions, and workshops. He believes that stories are gateways to new realms of understanding, not just entertainment.
-                </p>
-                
-                <h3 class="text-2xl text-amber-800 font-bold">A Multifaceted Artist</h3>
-                <ul class="list-disc pl-5 space-y-2 marker:text-amber-600">
-                    <li><strong>Lyricist:</strong> He pens <em>pallavis</em> in Sanskrit, Telugu, and Kannada, performed by maestros like Ranjani-Gayatri.</li>
-                    <li><strong>Visual Artist:</strong> His paintings explore Puranic symbolism, often serving as the backdrop for his narratives.</li>
-                    <li><strong>Design Researcher:</strong> Co-founder of <em>Unbind</em>, he merges design thinking with traditional wisdom.</li>
-                </ul>
-
-                <blockquote class="border-l-4 border-amber-600 pl-4 italic text-stone-600 my-6 bg-stone-100 p-4 rounded-r">
-                    "I want to create a space where we can question the epics, not to debunk them, but to understand their relevance to our modern emotions—our dejection, our surrender, and our love."
-                </blockquote>
+            <div class="shloka reveal delay-2">
+                धर्मेच अर्थेच कामेच मोक्षेच <br> नातिचरामि
             </div>
+
+            <div class="reveal delay-3" style="text-align: center;">
+                <div class="names">Archana</div>
+                <div class="ampersand">&</div>
+                <div class="names">Hrishikesh</div>
+            </div>
+
+            <div class="reveal delay-4 scroll-indicator">↓ Scroll to Journey ↓</div>
         </div>
-    </section>
 
-    <section id="productions" class="py-24 bg-stone-900 text-stone-100">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl text-amber-500 text-center mb-16">Featured Productions</h2>
-
-            <div class="grid lg:grid-cols-2 gap-10 mb-20 items-center">
-                <div class="order-2 lg:order-1 relative group cursor-pointer">
-                    <a href="https://www.youtube.com/watch?v=gNq763AJeNk&t=507s" target="_blank" class="block relative overflow-hidden rounded-lg shadow-2xl border border-amber-800">
-                        <img src="https://img.youtube.com/vi/gNq763AJeNk/maxresdefault.jpg" alt="Kumaram Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500 transform group-hover:scale-105">
-                        
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 bg-amber-600/90 rounded-full flex items-center justify-center group-hover:bg-amber-500 transition shadow-lg">
-                                <i class="fas fa-play text-white text-2xl pl-1"></i>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-4 right-4 bg-black/80 px-2 py-1 text-xs font-bold rounded text-white">Watch on YouTube</div>
-                    </a>
-                </div>
-                
-                <div class="order-1 lg:order-2 space-y-4">
-                    <h3 class="text-3xl text-amber-400">Kumaram: The Son of Shiva & Shakti</h3>
-                    <p class="text-stone-300 leading-relaxed">
-                        A visually stunning exploration of <strong>Lord Kartikeya (Murugan)</strong>. This production delves into the concept of <em>"Shanmukha"</em>—the six-faced god—and the union of power and grace. Vinay deconstructs the symbolism of the Vel (spear) and the peacock, blending narrative with high-energy musical accompaniment.
-                    </p>
-                    <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-amber-600">
-                        <span>#Kartikeya</span> <span>#Power</span> <span>#DivineUnion</span>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=gNq763AJeNk&t=507s" target="_blank" class="inline-block mt-4 text-amber-400 hover:text-white border-b border-amber-400 pb-1">Watch Full Performance &rarr;</a>
-                </div>
+        <!-- SECTION 2: Parents & Details -->
+        <div class="scroll-section">
+            <h2 class="reveal">With the blessings of our elders</h2>
+            <div class="reveal delay-1" style="margin: 20px 0; font-size: 1.2rem;">
+                <p><strong>D/o Mr.Govind & Mrs.Sharadha Upadhyaya</strong></p>
+                <p><strong>S/o Mr.Nagaraj & Mrs.Vani Nagaraj</strong></p>
             </div>
+            <h3 class="reveal delay-2" style="color: var(--gold); margin-top: 40px;">Join us on</h3>
+            <p class="reveal delay-3" style="font-size: 1.5rem; font-weight: bold; color: var(--maroon);">1st July, 2026</p>
+            <p class="reveal delay-4">Udupi Sharadha Kalyana Mantapam</p>
+            <a href="YOUR_MAPS_LINK" target="_blank" class="btn-modern btn-outline reveal delay-4">Open in Google Maps</a>
+        </div>
 
-            <div class="grid lg:grid-cols-2 gap-10 mb-20 items-center">
-                <div class="space-y-4">
-                    <h3 class="text-3xl text-amber-400">Annapoorna: The Goddess of All</h3>
-                    <p class="text-stone-300 leading-relaxed">
-                        In this soulful rendition, Vinay takes us to the ghats of <strong>Kashi</strong> (Varanasi). He narrates the story of Goddess Annapoorna, not just as the provider of food, but as the source of all sustenance—physical, emotional, and spiritual. The story highlights the moment Shiva himself becomes a beggar before the Mother.
-                    </p>
-                    <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-amber-600">
-                        <span>#Kashi</span> <span>#MotherGoddess</span> <span>#Sustenance</span>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=Q7hU2MhHTbg&t=2510s" target="_blank" class="inline-block mt-4 text-amber-400 hover:text-white border-b border-amber-400 pb-1">Watch Full Performance &rarr;</a>
+        <!-- SECTION 3: The Event List -->
+        <div class="scroll-section">
+            <div class="event-pane reveal">
+                <h2 style="color: var(--maroon); border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Ceremony Schedule</h2>
+                
+                <div class="event-item reveal delay-1">
+                    <div class="event-time">07:00 AM</div>
+                    <div>Prarthana & Invocation</div>
+                </div>
+				  <div class="event-item reveal delay-1">
+                    <div class="event-time">8:00 AM</div>
+                    <div>Breakfast</div>
                 </div>
                 
-                <div class="relative group cursor-pointer">
-                    <a href="https://www.youtube.com/watch?v=Q7hU2MhHTbg&t=2510s" target="_blank" class="block relative overflow-hidden rounded-lg shadow-2xl border border-amber-800">
-                        <img src="https://img.youtube.com/vi/Q7hU2MhHTbg/maxresdefault.jpg" alt="Annapoorna Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500 transform group-hover:scale-105">
-                        
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 bg-amber-600/90 rounded-full flex items-center justify-center group-hover:bg-amber-500 transition shadow-lg">
-                                <i class="fas fa-play text-white text-2xl pl-1"></i>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-4 right-4 bg-black/80 px-2 py-1 text-xs font-bold rounded text-white">Watch on YouTube</div>
-                    </a>
+                <div class="event-item reveal delay-2">
+                    <div class="event-time">9:00 AM</div>
+                    <div>Muhurtham</div>
                 </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 mt-12">
-                <div class="bg-stone-800 p-6 rounded border-t-4 border-amber-600 hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-xl text-amber-200 mb-2">Sundara Hanuman</h4>
-                    <p class="text-sm text-stone-400">A look at the vulnerable, "human" side of the mighty Hanuman through 9 versions of the Ramayana.</p>
-                </div>
-                <div class="bg-stone-800 p-6 rounded border-t-4 border-amber-600 hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-xl text-amber-200 mb-2">Chidambara Rahasya</h4>
-                    <p class="text-sm text-stone-400">Decoding the cosmic secret of the dancing Lord Nataraja in the golden hall of Chidambaram.</p>
-                </div>
-                <div class="bg-stone-800 p-6 rounded border-t-4 border-amber-600 hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-xl text-amber-200 mb-2">The Goddess: Six-Fold</h4>
-                    <p class="text-sm text-stone-400">Stories of Kali, Sita, and Radha, exploring the fierce and the gentle aspects of the feminine divine.</p>
+                
+                <div class="event-item reveal delay-3" style="border:none;">
+                    <div class="event-time">12:30 PM</div>
+                    <div>Traditional Lunch (Bhojana)</div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="schedule" class="py-24 bg-amber-50 relative">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl text-amber-900 text-center mb-6">Upcoming Shows</h2>
-            <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Join us for an evening of stories, music, and divine remembrance. Book your seats early as venues fill up fast.</p>
-
-            <div class="overflow-x-auto shadow-lg rounded-lg">
-                <table class="w-full bg-white text-left border-collapse">
-                    <thead>
-                        <tr class="bg-amber-900 text-amber-50 uppercase text-sm leading-normal">
-                            <th class="py-4 px-6">Date</th>
-                            <th class="py-4 px-6">Event Name</th>
-                            <th class="py-4 px-6">Venue / City</th>
-                            <th class="py-4 px-6 text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-stone-700 text-sm font-medium">
-                        <tr class="border-b border-stone-200 hover:bg-amber-50">
-                            <td class="py-4 px-6 whitespace-nowrap"><span class="font-bold">July 06, 2025</span><br><span class="text-xs text-stone-500">3:00 PM</span></td>
-                            <td class="py-4 px-6">Exploring Ramayana</td>
-                            <td class="py-4 px-6">Online / Bhogya Platform</td>
-                            <td class="py-4 px-6 text-center">
-                                <a href="https://bhogya.online" target="_blank" class="bg-amber-700 text-white py-2 px-4 rounded hover:bg-amber-800 transition">Book Now</a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-stone-200 hover:bg-amber-50">
-                            <td class="py-4 px-6 whitespace-nowrap"><span class="font-bold">Aug 12, 2025</span><br><span class="text-xs text-stone-500">6:30 PM</span></td>
-                            <td class="py-4 px-6">The Dance of Shiva</td>
-                            <td class="py-4 px-6">Bangalore International Centre, BLR</td>
-                            <td class="py-4 px-6 text-center">
-                                <a href="https://in.bookmyshow.com" target="_blank" class="bg-amber-700 text-white py-2 px-4 rounded hover:bg-amber-800 transition">Book Now</a>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-amber-50">
-                            <td class="py-4 px-6 whitespace-nowrap"><span class="font-bold">Oct 25, 2025</span><br><span class="text-xs text-stone-500">5:00 PM</span></td>
-                            <td class="py-4 px-6">Sundara Hanuman - Revival</td>
-                            <td class="py-4 px-6">Music Academy, Chennai</td>
-                            <td class="py-4 px-6 text-center">
-                                <a href="#" class="bg-stone-400 text-white py-2 px-4 rounded cursor-not-allowed">Sold Out</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- SECTION 4: Actions & Downloads -->
+        <div class="scroll-section">
+            <h2 class="reveal">We look forward to celebrating with you</h2>
+            
+            <div class="reveal delay-1" style="margin: 30px 0;">
+                <a href="YOUR_RSVP_FORM_LINK" class="btn-modern">RSVP Now</a>
+                <a href="YOUR_DRIVE_LINK" class="btn-modern">Upload Photos Here</a>
             </div>
 
-            <div class="mt-8 text-center">
-                <p class="text-stone-600">Follow for real-time updates:</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://in.bookmyshow.com/person/vinay-varanasi/2033042" target="_blank" class="flex items-center space-x-2 text-amber-800 hover:text-amber-600 font-bold border border-amber-800 px-4 py-2 rounded">
-                        <img src="https://in.bookmyshow.com/favicon.ico" class="w-4 h-4" alt="BMS"> <span>BookMyShow</span>
-                    </a>
-                    <a href="https://www.district.in/events/Vinay-Varanasi/artist" target="_blank" class="flex items-center space-x-2 text-amber-800 hover:text-amber-600 font-bold border border-amber-800 px-4 py-2 rounded">
-                        <i class="fas fa-ticket-alt"></i> <span>District</span>
-                    </a>
-                </div>
+            <!-- 5. PDF Download Placeholder -->
+            <div class="reveal delay-2" style="margin-top: 20px;">
+                <a href="YOUR_PDF_LINK.pdf" download class="btn-modern btn-outline">Download Digital Card (PDF)</a>
+            </div>
+
+            <div class="footer-gift reveal delay-3">
+                <p>Your blessings and presence are the greatest gifts we could ask for.</p>
+                <p>Should you wish to offer a token of love, we kindly request a <br>
+                <a href="YOUR_DONATION_LINK" target="_blank">contribution to the Vidyapeeta Formation in Kasargod.</a></p>
             </div>
         </div>
-    </section>
 
-    <section id="contact" class="py-24 bg-stone-900 text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 opacity-10 text-amber-500">
-            <i class="fas fa-dharmachakra fa-10x"></i>
-        </div>
+    </div>
 
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 relative z-10">
-            <div>
-                <h2 class="text-4xl md:text-5xl text-amber-400 mb-6">Contact & Enquire</h2>
-                <p class="text-stone-400 mb-10 text-lg">
-                    Whether you wish to book a show for your city, invite Vinay for a corporate talk, or collaborate on an artistic production, we would love to hear from you.
-                </p>
+    <script>
+        // Handle Door Opening
+        document.getElementById('knock').addEventListener('click', function() {
+            document.getElementById('doors').classList.add('open');
+            this.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Allow scrolling once doors open
+            
+            // Trigger animation for the first section immediately
+            setTimeout(() => {
+                document.querySelectorAll('.scroll-section:nth-child(1) .reveal').forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 500); // Small delay after door starts opening
+        });
 
-                <div class="space-y-6">
-                    <div class="flex items-start space-x-4">
-                        <div class="bg-amber-900 p-3 rounded-full text-amber-400">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl text-white">Management / Booking</h4>
-                            <p class="text-stone-400">info@shuka.org <span class="text-xs text-stone-500">(Placeholder)</span></p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <div class="bg-amber-900 p-3 rounded-full text-amber-400">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl text-white">Location</h4>
-                            <p class="text-stone-400">Bengaluru, Karnataka, India</p>
-                        </div>
-                    </div>
-                </div>
+        // Intersection Observer to trigger sequential animations on scroll
+        const observerOptions = {
+            root: document.getElementById('mainContainer'),
+            threshold: 0.3 // Triggers when 30% of the section is visible
+        };
 
-                <div class="mt-12">
-                    <h4 class="text-white mb-4 nav-font">Connect on Social Media</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://www.youtube.com/@thevinayvaranasi" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-800 text-amber-500 hover:bg-red-600 hover:text-white transition"><i class="fab fa-youtube fa-lg"></i></a>
-                        <a href="https://instagram.com/thevinayvaranasi" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-800 text-amber-500 hover:bg-pink-600 hover:text-white transition"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-800 text-amber-500 hover:bg-blue-600 hover:text-white transition"><i class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-800 text-amber-500 hover:bg-black hover:text-white transition"><i class="fab fa-x-twitter fa-lg"></i></a>
-                        <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-800 text-amber-500 hover:bg-blue-700 hover:text-white transition"><i class="fab fa-linkedin-in fa-lg"></i></a>
-                    </div>
-                </div>
-            </div>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add 'active' class to all reveal elements in the visible section
+                    const reveals = entry.target.querySelectorAll('.reveal');
+                    reveals.forEach(reveal => reveal.classList.add('active'));
+                }
+            });
+        }, observerOptions);
 
-            <div class="bg-stone-800 p-8 rounded-lg border border-stone-700 shadow-2xl">
-                <form class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-stone-400 text-sm mb-2">Name</label>
-                            <input type="text" class="w-full bg-stone-700 border border-stone-600 text-white px-4 py-3 rounded focus:outline-none focus:border-amber-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-stone-400 text-sm mb-2">Email</label>
-                            <input type="email" class="w-full bg-stone-700 border border-stone-600 text-white px-4 py-3 rounded focus:outline-none focus:border-amber-500 transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-stone-400 text-sm mb-2">Subject (e.g., Booking Inquiry)</label>
-                        <input type="text" class="w-full bg-stone-700 border border-stone-600 text-white px-4 py-3 rounded focus:outline-none focus:border-amber-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-stone-400 text-sm mb-2">Message</label>
-                        <textarea rows="4" class="w-full bg-stone-700 border border-stone-600 text-white px-4 py-3 rounded focus:outline-none focus:border-amber-500 transition"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded transition duration-300 nav-font tracking-widest">
-                        SEND MESSAGE
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black text-stone-600 py-8 border-t border-stone-900">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <p class="text-sm">&copy; 2025 Vinay L Varanasi. All Rights Reserved.</p>
-            </div>
-            <div class="flex space-x-6 text-sm font-bold uppercase tracking-widest">
-                <a href="#about" class="hover:text-amber-500">Bio</a>
-                <a href="#productions" class="hover:text-amber-500">Shows</a>
-                <a href="#contact" class="hover:text-amber-500">Contact</a>
-            </div>
-        </div>
-    </footer>
-
+        // Observe all sections except the first one (handled on click)
+        document.querySelectorAll('.scroll-section:not(:nth-child(1))').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
